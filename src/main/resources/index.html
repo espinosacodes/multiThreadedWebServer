@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Threaded Web Server</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .feature-list {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .feature-list h2 {
+            margin-top: 0;
+            color: #ffd700;
+        }
+        .feature-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .test-links {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .test-links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .test-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Multi-Threaded Web Server</h1>
+        
+        <div class="status">
+            <strong>✅ Server is running successfully!</strong><br>
+            This page is being served by your custom multi-threaded web server.
+        </div>
+
+        <div class="feature-list">
+            <h2>✨ Features Implemented</h2>
+            <ul>
+                <li>Multi-threaded request handling</li>
+                <li>404 error handling for non-existent resources</li>
+                <li>Support for HTML files</li>
+                <li>Support for JPG/JPEG images</li>
+                <li>Support for GIF images</li>
+                <li>Support for PNG images</li>
+                <li>Support for CSS and JavaScript files</li>
+                <li>Proper MIME type detection</li>
+                <li>Binary file handling for images</li>
+                <li>Beautiful 404 error page</li>
+            </ul>
+        </div>
+
+        <div class="test-links">
+            <h2>🧪 Test Links</h2>
+            <a href="/test.html">Test HTML Page</a>
+            <a href="/nonexistent.html">Test 404 Error</a>
+            <a href="/sample.txt">Test Text File</a>
+            <a href="/style.css">Test CSS File</a>
+        </div>
+
+        <div class="feature-list">
+            <h2>🔧 Technical Details</h2>
+            <ul>
+                <li>Server running on port 8080</li>
+                <li>Java-based implementation</li>
+                <li>Maven project structure</li>
+                <li>Thread-per-connection model</li>
+                <li>HTTP/1.0 protocol support</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,15 @@
+This is a sample text file served by the multi-threaded web server.
+
+Features demonstrated:
+- Text file serving with proper MIME type (text/plain)
+- Content-Length header calculation
+- Proper HTTP response formatting
+
+The server can handle various file types including:
+- HTML files (text/html)
+- Text files (text/plain)
+- CSS files (text/css)
+- JavaScript files (application/javascript)
+- Image files (image/jpeg, image/gif, image/png)
+
+This text file is being served with the correct Content-Type header and proper encoding. 
