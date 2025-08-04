@@ -46,8 +46,7 @@ public class Main {
     }
 
     public void handleRequest(Socket socket) throws IOException {
-        try (var reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             var writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
+        try (var reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
             
             String line;
             String resource = "/index.html"; // Default resource
@@ -79,49 +78,48 @@ public class Main {
         
         System.out.println("Looking for file: " + file.getAbsolutePath());
         
-        var writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        try (var writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
 
-        if (file.exists() && file.isFile()) {
-            // Get file extension for MIME type
-            String extension = getFileExtension(fileName);
-            String contentType = MIME_TYPES.getOrDefault(extension.toLowerCase(), "application/octet-stream");
-            
-            // Read file content
-            byte[] fileContent = Files.readAllBytes(file.toPath());
-            int contentLength = fileContent.length;
-            
-            // Build HTTP response
-            StringBuilder response = new StringBuilder();
-            response.append("HTTP/1.0 200 OK\r\n");
-            response.append("Content-Type: ").append(contentType).append("\r\n");
-            response.append("Content-Length: ").append(contentLength).append("\r\n");
-            response.append("Connection: close\r\n");
-            response.append("\r\n");
-            
-            // Send headers
-            writer.write(response.toString());
-            writer.flush();
-            
-            // Send file content
-            if (isTextFile(contentType)) {
-                // For text files, send as string
-                String textContent = new String(fileContent);
-                writer.write(textContent);
+            if (file.exists() && file.isFile()) {
+                // Get file extension for MIME type
+                String extension = getFileExtension(fileName);
+                String contentType = MIME_TYPES.getOrDefault(extension.toLowerCase(), "application/octet-stream");
+                
+                // Read file content
+                byte[] fileContent = Files.readAllBytes(file.toPath());
+                int contentLength = fileContent.length;
+                
+                // Build HTTP response
+                StringBuilder response = new StringBuilder();
+                response.append("HTTP/1.0 200 OK\r\n");
+                response.append("Content-Type: ").append(contentType).append("\r\n");
+                response.append("Content-Length: ").append(contentLength).append("\r\n");
+                response.append("Connection: close\r\n");
+                response.append("\r\n");
+                
+                // Send headers
+                writer.write(response.toString());
+                writer.flush();
+                
+                // Send file content
+                if (isTextFile(contentType)) {
+                    // For text files, send as string
+                    String textContent = new String(fileContent);
+                    writer.write(textContent);
+                } else {
+                    // For binary files, send raw bytes
+                    var outputStream = socket.getOutputStream();
+                    outputStream.write(fileContent);
+                    outputStream.flush();
+                }
+                
+                System.out.println("File served successfully: " + fileName + " (Content-Type: " + contentType + ")");
             } else {
-                // For binary files, send raw bytes
-                var outputStream = socket.getOutputStream();
-                outputStream.write(fileContent);
-                outputStream.flush();
+                // File not found - send 404 response
+                send404Response(writer);
+                System.out.println("404 Not Found: " + fileName);
             }
-            
-            System.out.println("File served successfully: " + fileName + " (Content-Type: " + contentType + ")");
-        } else {
-            // File not found - send 404 response
-            send404Response(writer);
-            System.out.println("404 Not Found: " + fileName);
         }
-        
-        writer.close();
     }
 
     private void send404Response(BufferedWriter writer) throws IOException {
@@ -177,16 +175,17 @@ public class Main {
     }
 
     public void init() throws IOException {
-        ServerSocket server = new ServerSocket(8082);
-        System.out.println("Server started on port 8082");
-        System.out.println("Access the server at: http://localhost:8082");
-        System.out.println("Supported file types: HTML, JPG, GIF, PNG, CSS, JS, TXT");
+        try (ServerSocket server = new ServerSocket(8082)) {
+            System.out.println("Server started on port 8082");
+            System.out.println("Access the server at: http://localhost:8082");
+            System.out.println("Supported file types: HTML, JPG, GIF, PNG, CSS, JS, TXT");
 
-        while (true) {
-            System.out.println("Waiting for a client...");
-            Socket socket = server.accept();
-            System.out.println("Client connected from: " + socket.getInetAddress().getHostAddress());
-            dispatchWorker(socket);
+            while (true) {
+                System.out.println("Waiting for a client...");
+                Socket socket = server.accept();
+                System.out.println("Client connected from: " + socket.getInetAddress().getHostAddress());
+                dispatchWorker(socket);
+            }
         }
     }
 
