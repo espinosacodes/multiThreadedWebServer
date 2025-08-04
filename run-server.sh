@@ -20,7 +20,7 @@ fi
 echo "✅ Java found: $(java -version 2>&1 | head -n 1)"
 echo "✅ JAR file found: target/multi-threaded-web-server-1.0.0.jar"
 echo ""
-echo "🌐 Server will be available at: http://localhost:8080"
+echo "🌐 Server will be available at: http://localhost:8082"
 echo "📁 Supported file types: HTML, JPG, GIF, PNG, CSS, JS, TXT"
 echo "🔧 Press Ctrl+C to stop the server"
 echo ""

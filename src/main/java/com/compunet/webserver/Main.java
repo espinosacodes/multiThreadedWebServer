@@ -177,9 +177,9 @@ public class Main {
     }
 
     public void init() throws IOException {
-        ServerSocket server = new ServerSocket(8080);
-        System.out.println("Server started on port 8080");
-        System.out.println("Access the server at: http://localhost:8080");
+        ServerSocket server = new ServerSocket(8082);
+        System.out.println("Server started on port 8082");
+        System.out.println("Access the server at: http://localhost:8082");
         System.out.println("Supported file types: HTML, JPG, GIF, PNG, CSS, JS, TXT");
 
         while (true) {
